@@ -32,7 +32,7 @@ heatmap(α, β, image, aspect_ratio = 1)
 # animation of disc image over inclination angles
 # redshift point function
 redshift_pf = ConstPointFunctions.redshift(m, x) ∘ ConstPointFunctions.filter_intersected()
-anim = @animate for inc in vcat(2:2:88, 86:-2:4)
+anim = @animate for inc in vcat(10:10:80, 70:-10:20)
     x = SVector(0.0, 1000.0, deg2rad(inc), 0.0)
     α, β, image = rendergeodesics(
         m, 
