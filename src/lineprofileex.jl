@@ -1,11 +1,15 @@
 using Gradus, Plots
-d = ThinDisc(0.0,400.0)
-x = SVector(0.0,1000.0,deg2rad(40),0.0)
-m = KerrMetric(1.0,0.998)
-maxrₑ=50.0
-ε(r)=r^(-3)
-gs = range(0.0,1.2,500)
-_,flux = lineprofile(gs,ε,m,x,d,maxrₑ=maxrₑ, verbose=true)
-plot(gs,flux, legend=false)
 
-savefig("/home/xv22578/Julia_tests/line_profile_test2.png")
+anim = @animate for a in (0.0:0.05:0.99)
+    m = KerrMetric(a=a)
+    d = ThinDisc(0.0, Inf)
+    x = SVector(0.0, 1000.0, deg2rad(40), 0.0)
+    maxrₑ=400.0
+    ε(r)=r^(-3)
+    gs = range(0.0,1.2,500)
+    # lineprofile sets r_in to the ISCO plus espilon by default
+    _,flux = lineprofile(gs,ε,m,x,d,maxrₑ=maxrₑ, verbose=true)
+    flux_scaled = flux .* (0.015 / maximum(flux))
+    plot(gs, flux_scaled, legend=false, xlims=(0.25, 1.25), ylims=(0, 0.018), xlabel="g", ylabel="Flux", title="Line profile for a=$(round(a,digits=2))")
+end
+gif(anim, "line_profile.gif", fps = 10)
