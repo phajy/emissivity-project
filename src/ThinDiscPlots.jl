@@ -36,7 +36,7 @@ heatmap(α, β, image, aspect_ratio = 1, title = "Inclination = 75°, Spin = 0.0
 
 ## animation of disc image over inclination angles
 m = KerrMetric(1.0, 0.0)
-anim = @animate for inc in vcat(2:2:90, 90:-2:0)
+anim = @animate for inc in vcat(0:2:90, 90:-2:0)
     x = SVector(0.0, 1000.0, deg2rad(inc), 0.0)
     α, β, image = rendergeodesics(
         m, 
@@ -59,7 +59,7 @@ gif(anim, "thin_disc_inclination3.gif", fps = 15)
 ## animation of disc image over different black hole spins
 x = SVector(0.0,1000.0,deg2rad(75),0.0)
 anim = @animate for a in vcat(-0.99:0.03:0.99, 0.99:-0.03:-0.99)
-    m = KerrMetric(0.0,a)
+    m = KerrMetric(1.0,a)
     α, β, image = rendergeodesics(
         m, 
         x, 
