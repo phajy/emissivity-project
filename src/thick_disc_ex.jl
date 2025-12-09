@@ -11,6 +11,7 @@ m = KerrMetric(M = 1.0, a = a)
 # Shakura-Sunyaev thick disc with Eddington ratio 0.2
 eddington_ratio = 0.2
 d = ShakuraSunyaev(m, eddington_ratio = eddington_ratio)
+# d = ThinDisc()
 
 # Observer position
 θ = 55.0
